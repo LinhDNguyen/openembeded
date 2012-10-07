@@ -1,5 +1,5 @@
---- db-4.3.29-dist/../dbinc/mutex.h	2005-11-15 07:33:27.761042518 -0800
-+++ db-4.3.29-dist/../dbinc/mutex.h	2005-11-15 07:55:24.823920060 -0800
+--- dbinc/mutex.h	2005-11-15 07:33:27.761042518 -0800
++++ dbinc/mutex.h	2005-11-15 07:55:24.823920060 -0800
 @@ -470,6 +470,25 @@
  #ifdef LOAD_ACTUAL_MUTEX_CODE
  #define	MUTEX_SET_TEST	1		/* gcc/arm: 0 is clear, 1 is set. */
