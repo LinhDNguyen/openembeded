@@ -55,6 +55,10 @@ TARGET_LD_KERNEL_ARCH ?= ""
 HOST_LD_KERNEL_ARCH ?= "${TARGET_LD_KERNEL_ARCH}"
 
 KERNEL_CC = "${CCACHE}${HOST_PREFIX}gcc${KERNEL_CCSUFFIX} ${HOST_CC_KERNEL_ARCH}"
+KERNEL_AR = "${CCACHE}${HOST_PREFIX}ar"
+KERNEL_NM = "${CCACHE}${HOST_PREFIX}nm"
+KERNEL_OBJCOPY = "${CCACHE}${HOST_PREFIX}objcopy"
+
 KERNEL_LD = "${LD}${KERNEL_LDSUFFIX} ${HOST_LD_KERNEL_ARCH}"
 
 # Where built kernel lies in the kernel tree
@@ -84,13 +88,13 @@ EXTRA_OEMAKE = ""
 
 kernel_do_compile() {
 	unset CFLAGS CPPFLAGS CXXFLAGS LDFLAGS MACHINE
-	oe_runmake include/linux/version.h CC="${KERNEL_CC}" LD="${KERNEL_LD}"
+	oe_runmake include/linux/version.h CC="${KERNEL_CC}" LD="${KERNEL_LD}" AR="${KERNEL_AR}" NM="${KERNEL_NM}" OBJCOPY="${KERNEL_OBJCOPY}"
 	if [ "${KERNEL_MAJOR_VERSION}" != "2.6" ]; then
-		oe_runmake dep CC="${KERNEL_CC}" LD="${KERNEL_LD}"
+		oe_runmake dep CC="${KERNEL_CC}" LD="${KERNEL_LD}" AR="${KERNEL_AR}" NM="${KERNEL_NM}" OBJCOPY="${KERNEL_OBJCOPY}"
 	fi
-	oe_runmake ${KERNEL_IMAGETYPE} CC="${KERNEL_CC}" LD="${KERNEL_LD}"
+	oe_runmake ${KERNEL_IMAGETYPE} CC="${KERNEL_CC}" LD="${KERNEL_LD}" AR="${KERNEL_AR}" NM="${KERNEL_NM}" OBJCOPY="${KERNEL_OBJCOPY}"
 	if (grep -q -i -e '^CONFIG_MODULES=y$' .config); then
-		oe_runmake modules  CC="${KERNEL_CC}" LD="${KERNEL_LD}"
+		oe_runmake modules  CC="${KERNEL_CC}" LD="${KERNEL_LD}" AR="${KERNEL_AR}" NM="${KERNEL_NM}" OBJCOPY="${KERNEL_OBJCOPY}"
 	else
 		oenote "no modules to compile"
 	fi
