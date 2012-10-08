@@ -1,0 +1,31 @@
+diff -rupN git.orig/arch/arm/mach-s3c2440/mach-mini2440.c git/arch/arm/mach-s3c2440/mach-mini2440.c
+--- git.orig/arch/arm/mach-s3c2440/mach-mini2440.c	2012-10-08 20:22:37.302878382 +0700
++++ git/arch/arm/mach-s3c2440/mach-mini2440.c	2012-10-08 20:22:59.710598246 +0700
+@@ -289,6 +289,18 @@ static struct s3c2410fb_display mini2440
+ 				   S3C2410_LCDCON5_INVVFRAME |
+ 				   S3C2410_LCDCON5_PWREN),
+ 	},
++	[5] = { /* mini2440 + 3.5" screen W35 */
++		/* be sure the "power" jumper is set accordingly ! */
++		_LCD_DECLARE(
++			7,			/* the 3.5 is quite fast */
++			320, 28, 30, 40, 	/* x timing */
++			240, 15, 2, 1,		/* y timing */
++			40),			/* refresh rate */
++		.lcdcon5	= (S3C2410_LCDCON5_FRM565 |
++				   S3C2410_LCDCON5_INVVLINE |
++				   S3C2410_LCDCON5_INVVFRAME |
++				   S3C2410_LCDCON5_PWREN),
++	},
+ };
+ 
+ /* todo - put into gpio header */
+@@ -651,7 +663,7 @@ static void __init mini2440_map_io(void)
+  * 0-9 LCD configuration
+  *
+  */
+-static char mini2440_features_str[12] __initdata = "0tb";
++static char mini2440_features_str[12] __initdata = "5tb";
+ 
+ static int __init mini2440_features_setup(char *str)
+ {

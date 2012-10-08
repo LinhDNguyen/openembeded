@@ -8,6 +8,7 @@ GGSRC = "http://www.xora.org.uk/oe/patches/"
 SRCREV = "${AUTOREV}"
 
 SRC_URI = "git://repo.or.cz/linux-2.6/mini2440.git;protocol=git;branch=mini2440-stable-v2.6.32 \
+           file://w35lcd.patch;patch=1 \
            file://defconfig-mini2440"
 
 S = "${WORKDIR}/git"
